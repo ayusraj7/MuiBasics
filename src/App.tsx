@@ -44,6 +44,8 @@ import MuiMasonry from './components/MuiMasonry';
 import MuiResponsivness from './components/MuiResponsivness';
 import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
+import MuiDataGrid from './components/MuiDataGrid';
+import AgGrid1 from './AgGrid/AgGrid1';
 // const theme = createTheme({
 //   palette:{
 //     status:{
@@ -91,7 +93,7 @@ function App() {
         {/* <MuiList/> */}
         {/* <MuiChip></MuiChip> */}
         {/* <MuiToolTip/> */}
-        <MuiTable/>
+        {/* <MuiTable/> */}
         {/* <MuiAlert/> */}
         {/* <MuiSnackBar/> */}
         {/* <MuiDialog/> */}
@@ -102,6 +104,8 @@ function App() {
         {/* <MuiTimeline/> */}
         {/* <MuiMasonry/> */}
         {/* <MuiResponsivness/> */}
+        {/* <MuiDataGrid/> */}
+        <AgGrid1/>
       </div>
     </>
   );
