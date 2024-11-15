@@ -1,17 +1,6 @@
 import React from "react";
-import { useState } from "react";
-import {
-  Table,
-  TableHead,
-  TableContainer,
-  TableBody,
-  TableRow,
-  TableCell,
-  Paper,
-  TablePagination,
-  TableSortLabel,
-} from "@mui/material";
-
+import { Box } from "@mui/material";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 const data = [
   {
     id: 1,
@@ -814,62 +803,56 @@ const data = [
     ip_address: "95.168.189.171",
   },
 ];
-const MuiTable = () => {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const handleChangePage = (event: any, newPage: number) => {
-    setPage(newPage);
-  };
 
-  const handleChangeRowsPerPage = (event: any) => {
-    console.log('event',event.target.value);
-    setRowsPerPage(parseInt(event.target.value));
-    setPage(0);
-  };
-  
-  const [direct,setDirection]=useState<string | null>('asc');
-  const changeDirection=()=>{
-    
-  }
-  console.log('direct',direct);
+const columns: GridColDef[] = [
+  { field: "id", headerName: "ID", width: 90,align:'center'},
+  {
+    field: "first_name",
+    headerName: "First name",
+    width: 150,
+    editable: true,
+  },
+  {
+    field: "last_name",
+    headerName: "Last name",
+    width: 150,
+    editable: true,
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    type: "number",
+    width: 110,
+    editable: true,
+  },
+  {
+    field: "gender",
+    headerName: "Gender",
+    description: "This column has a value getter and is not sortable.",
+    sortable: false,
+    width: 160,
+  },
+];
 
+const paginationModel = { page: 0, pageSize: 10};
+
+const MuiDataGrid = () => {
   return (
-    <TableContainer component={Paper} sx={{ height: "77vh" , width:"50vw",margin:"60px"}}>
-      <Table aria-label="simple table" stickyHeader>
-        <TableHead>
-          <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell>First Name<TableSortLabel active direction="desc"></TableSortLabel></TableCell>
-            <TableCell>Last Name</TableCell>
-            <TableCell>Email</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data &&
-            data?.slice(page*rowsPerPage,page * rowsPerPage + rowsPerPage).map((row) => (
-              <TableRow
-                key={row.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>{row.id}</TableCell>
-                <TableCell>{row.first_name}</TableCell>
-                <TableCell>{row.last_name}</TableCell>
-                <TableCell align="left">{row.email}</TableCell>
-              </TableRow>
-            ))}
-        </TableBody>
-      </Table>
-      <TablePagination
-        count={data?.length}
-        component="div"
-        rowsPerPageOptions={[10, 25]}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      ></TablePagination>
-    </TableContainer>
+    <Box
+      sx={{
+        width: "90%",
+        height: "80%",
+      }}
+    >
+      <DataGrid
+        checkboxSelection
+        rows={data}
+        columns={columns}
+        initialState={{ pagination: { paginationModel } }}
+        pageSizeOptions={[10]}
+      ></DataGrid>
+    </Box>
   );
 };
 
-export default MuiTable;
+export default MuiDataGrid;
